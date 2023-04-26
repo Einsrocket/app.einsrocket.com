@@ -13,6 +13,7 @@ import { Onboarding } from "../pages/Onboarding";
 import { Redirect } from "./Redirect";
 import { Pagenotfound } from "../pages/PageNotFound";
 import { Logoutpage } from "../pages/Logout";
+import { RestoreSectionPage } from "../pages/RestoreSectionPage";
 
 export function Router() {
     return (
@@ -86,6 +87,14 @@ export function Router() {
                         element={
                             <PrivateRoute>
                                 <Logoutpage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/restore_section"
+                        element={
+                            <PrivateRoute>
+                                <RestoreSectionPage />
                             </PrivateRoute>
                         }
                     />

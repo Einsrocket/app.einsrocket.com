@@ -4,7 +4,7 @@ import { Play, Pause, CornersOut } from "phosphor-react";
 
 import { PaymentModal } from "../../../../components/Modals/payment_Modal/Index.jsx";
 import style from "./styles.module.css";
-import VV from "./e.mp4";
+// import VV from "./e.mp4";
 import { RightDiv } from "../right_div/Index";
 import { Comments } from "../comments/Index";
 import { Header } from "../header/Index.jsx";
@@ -140,8 +140,9 @@ export function DiscoverLesson() {
                             <div>
                                 <video
                                     ref={videoRef}
-                                    src={VV}
-                                    // src={lesson?.video}
+                                    // src={VV}
+                                    src={lesson?.video}
+                                    poster={lesson?.poster}
                                     onTimeUpdate={() => {
                                         handleVideoTimeUpdate();
                                     }}

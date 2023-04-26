@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    border-top: 3px solid rgba(199, 199, 199, 0.089);
+    border-top: 1.5px solid rgba(199, 199, 199, 0.089);
 }
 
 .bottom_navigation button {

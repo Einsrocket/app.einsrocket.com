@@ -1,0 +1,89 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+.container::-webkit-scrollbar {
+    background: transparent;
+    width: 8px;
+}
+.container::-webkit-scrollbar-thumb {
+    background: hsl(180, 1%, 17%);
+    border-radius: 15px;
+}
+
+.container .form {
+    margin: auto;
+    margin-top: 100px;
+    background-color: var(--box-background);
+    width: 50%;
+    padding-block: 30px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5%;
+    box-shadow: 1px 1px 5px #000;
+    position: relative;
+    color: var(--gray);
+    text-align: center;
+}
+
+.container .form h1 {
+    margin-top: 9px;
+    margin-bottom: 19px;
+    color: var(--gray);
+}
+
+.container .form p {
+    margin-bottom: 20px;
+    line-height: 25px;
+    color: var(--gray);
+}
+.container .form .tutorial_buttons {
+    padding-top: 10px;
+    margin: auto;
+}
+.container .form .tutorial_buttons button {
+    padding: 17px 48px;
+    color: var(--gray);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-weight: 600;
+    transition: 0.5s;
+    margin-right: 14px;
+    background: var(--green);
+}
+.container .form .tutorial_buttons button:last-child {
+    background: var(--primary);
+}
+
+/* mobile */
+
+@media (max-width: 1200px) {
+    .container .form {
+        width: 70%;
+    }
+}
+@media (max-width: 900px) {
+    .container .form {
+        width: 90%;
+    }
+}
+@media (max-width: 600px) {
+    .container .form h1 {
+        font-size: 1.5rem;
+    }
+    .container .form p {
+        font-size: 0.9rem;
+    }
+    .container .form .tutorial_buttons button {
+        margin-bottom: 15px;
+    }
+}

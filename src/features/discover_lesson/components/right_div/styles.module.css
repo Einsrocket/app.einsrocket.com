@@ -1,0 +1,66 @@
+.container {
+    flex: 1;
+    overflow: hidden;
+}
+.box {
+    border-radius: 5px;
+    transform: translateY(-10px);
+    background-color: rgb(41, 41, 46);
+}
+
+.container h4 {
+    color: var(--gray);
+    padding: 10px;
+}
+.container .playlist {
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-bottom: 15px;
+    background-color: rgb(25, 25, 28);
+}
+.container .playlist a {
+    color: rgb(4, 211, 97);
+    text-decoration: none;
+}
+.container .playlist::-webkit-scrollbar {
+    background: transparent;
+    width: 5px;
+}
+.lesson .container .playlist::-webkit-scrollbar-thumb {
+    background: hsl(229, 76%, 66%);
+    border-radius: 15px;
+}
+.container .playlist_lesson {
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    margin-right: 0;
+}
+.container .playlist_lesson:hover {
+    background: rgba(84, 230, 140, 0.034);
+}
+.container .playlist_lesson div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.lesson .container .playlist_lesson div span:first-child {
+    color: var(--foreground-secondary);
+    font-size: 0.8rem;
+}
+.lesson .container .playlist_lesson div span:last-child {
+    color: var(--green-primary-dark);
+    border: 1px solid var(--green-primary-dark);
+    padding: 5px 14px;
+    font-size: 0.6rem;
+}
+.container .playlist_lesson p {
+    color: var(--foreground-secondary);
+    margin-top: 8px;
+    font-size: 0.8rem;
+}

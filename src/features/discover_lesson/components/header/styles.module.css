@@ -1,0 +1,41 @@
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--gray-line);
+    padding: 30px 10%;
+    margin-bottom: 20px;
+    background-color: var(--box-background);
+    padding-top: 70px;
+    background: rgb(18, 18, 20);
+}
+.welcome img {
+    width: 200px;
+    margin-right: 20px;
+    border-right: 1px solid var(--gray-line);
+    padding-right: 25px;
+}
+.welcome div {
+    display: flex;
+    align-items: center;
+}
+.welcome p {
+    display: flex;
+    align-items: center;
+    transform: translatex(-15px);
+    margin-left: 20px;
+    color: var(--text);
+}
+
+@media (max-width: 740px) {
+    .welcome span {
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .welcome {
+        display: none;
+    }
+}

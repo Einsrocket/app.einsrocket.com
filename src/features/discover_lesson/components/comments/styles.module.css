@@ -1,0 +1,60 @@
+.container {
+    padding: 14px;
+    background-color: var(--box-background);
+    margin-top: 50px;
+}
+.container .input_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .input_box div {
+    background-color: var(--background);
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border: 1px solid var(--gray-outline);
+    padding: 8px;
+    border-radius: 5px;
+}
+.container .input_box input {
+    flex-basis: 92%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--text);
+}
+.container .input_box input::placeholder {
+    color: var(--text);
+}
+.container .input_box button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+.container .input_box button:hover {
+    opacity: 0.8;
+}
+
+.comment_box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 14px;
+    height: 450px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.comment_box::-webkit-scrollbar {
+    background: var(--outline);
+    width: 5px;
+}
+.comment_box::-webkit-scrollbar-thumb {
+    background: hsl(229, 76%, 66%);
+    border-radius: 15px;
+}

@@ -1,0 +1,106 @@
+.discover_course {
+    background: var(--box-background);
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 50px;
+    gap: 50px;
+}
+.discover_course:hover {
+    border: 1.5px solid var(--discover-blue);
+    cursor: pointer;
+}
+.discover_course:active {
+    border: none;
+}
+.discover_course .discover_course_right,
+.discover_course .discover_course_left {
+    flex: 1;
+}
+.discover_course .discover_course_left .discover_course_left_row {
+    display: flex;
+    align-items: flex-start;
+}
+.discover_course .discover_course_left .discover_course_left_row img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-right: 18px;
+}
+.discover_course .discover_course_left .discover_course_left_row span {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gray);
+}
+.discover_course .discover_course_left .discover_course_left_row p {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-top: 18px;
+}
+
+.discover_course_right {
+    width: 100%;
+}
+.discover_course_right p {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 18px;
+}
+.discover_course_right .discover_course_right_topics {
+    font-size: 0.9rem;
+    background: var(--background);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.discover_course_right .discover_course_right_topics p {
+    font-size: 0.9rem;
+    color: var(--text);
+    display: block;
+    margin-bottom: 18px;
+    position: relative;
+    margin-left: 20px;
+}
+.discover_course_right .discover_course_right_topics p::after {
+    position: absolute;
+    background: var(--violet);
+    content: "";
+    left: -20px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+@media (max-width: 800px) {
+    .discover_course {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .discover_course .discover_course_left .discover_course_left_row {
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .discover_course .discover_course_left .discover_course_left_row div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+@media (max-width: 470px) {
+    .discover_course .discover_course_left .discover_course_left_row img {
+        width: 70px;
+        height: 70px;
+    }
+    .discover_course .discover_course_left .discover_course_left_row div span {
+        font-size: 1.5rem;
+    }
+}

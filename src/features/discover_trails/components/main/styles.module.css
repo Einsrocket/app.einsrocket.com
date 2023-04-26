@@ -1,0 +1,141 @@
+.trail {
+    width: 100%;
+    padding: 3% 5%;
+    padding-bottom: 100px;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--gray-line);
+    margin-top: 100px;
+    padding: 0 10%;
+    padding-bottom: 30px;
+}
+.welcome img {
+    width: 200px;
+    margin-right: 20px;
+    border-right: 1px solid var(--gray-line);
+    padding-right: 25px;
+}
+.welcome div {
+    display: flex;
+    align-items: center;
+}
+.welcome p {
+    display: flex;
+    align-items: center;
+    transform: translatex(-15px);
+    margin-left: 20px;
+    color: var(--text);
+}
+
+.trail .trail_column {
+    margin-top: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.trail .trail_lesson {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 25px;
+    cursor: pointer;
+    border-radius: 14px;
+    border: 1px solid var(--gray-line);
+    background: rgb(9, 9, 10);
+}
+.trail .trail_lesson:hover {
+    border: 1.2px solid var(--discover-blue);
+}
+.trail .trail_lesson_left {
+    width: 10%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(9, 9, 10);
+    /* border: 1px solid var(--gray-line); */
+    border-radius: 5px 0px 0px 5px;
+    padding: 8px;
+}
+.trail .trail_lesson_left span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--discover-blue);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.trail .trail_lesson_right {
+    border-radius: 0 14px 14px 0;
+    width: 90%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgb(32, 32, 36) 0%,
+        rgba(32, 32, 36, 0.25) 100%
+    );
+    padding: 30px;
+    overflow: hidden;
+}
+.trail .trail_lesson_right strong {
+    font-size: 1.2rem;
+    color: var(--gray);
+}
+.trail .trail_lesson_right p {
+    color: var(--gray);
+    margin-top: 18px;
+    font-size: 0.8rem;
+    word-wrap: break-word;
+    line-height: 26px;
+    word-break: break-all;
+}
+
+@media (max-width: 740px) {
+    .welcome span {
+        display: none;
+    }
+}
+
+@media (max-width: 470px) {
+    .welcome div {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+@media (max-width: 480px) {
+    .trail .trail_lesson_left span {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    .trail .trail_lesson_left {
+        align-items: flex-start;
+        width: 20%;
+        padding-top: 30px;
+    }
+}
+@media (max-width: 370px) {
+    .trail .trail_lesson_right strong {
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 270px) {
+    .trail .trail_lesson_right strong {
+        font-size: 1rem;
+    }
+}

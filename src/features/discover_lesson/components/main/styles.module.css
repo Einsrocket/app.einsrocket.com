@@ -1,0 +1,158 @@
+.container {
+    width: 100%;
+    padding: 50px 0;
+    padding-bottom: 100px;
+}
+
+.container .box {
+    display: flex;
+    text-align: flex-start;
+    gap: 30px;
+    padding: 0 10%;
+    margin-top: 50px;
+}
+
+.container .box .video_wrapper {
+    flex: 1.5;
+}
+.container .box .video_wrapper video {
+    outline: none;
+    width: 100%;
+}
+.container .box .video_wrapper video::-webkit-media-controls {
+    display: none !important;
+}
+.container .box .video_wrapper div:first-child {
+    width: 100%;
+    background-color: #202024;
+    padding-top: 10px;
+    position: relative;
+}
+
+.container .box .video_wrapper div:last-child {
+    width: 100%;
+    height: 50px;
+    background-color: #202024;
+    transform: translateY(-20px);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 0 10px;
+}
+.container .box .video_wrapper div:last-child input {
+    width: 100%;
+}
+.container .box h4 {
+    color: var(--foreground-secondary);
+    margin: 14px;
+}
+
+.container .box .video_wrapper div button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 1s;
+}
+.container .box .video_wrapper div button:hover {
+    background-color: #2020249c;
+    opacity: 0.8;
+}
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+l
+*/
+.description {
+    padding: 0 10%;
+}
+.description h1 {
+    font-size: 2rem;
+    margin-top: 40px;
+    color: var(--colors-text-title);
+}
+.description span {
+    margin-top: 30px;
+    display: inline-block;
+    color: var(--gray);
+    font-weight: 600;
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 15px;
+}
+.description p {
+    padding-top: 30px;
+    color: var(--gray);
+    font-weight: 500;
+    line-height: 26px;
+    border-top: 1px solid var(--gray-line);
+    word-break: break-all;
+    word-wrap: break-word;
+}
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+l
+*/
+
+@media (max-width: 800px) {
+    .box {
+        flex-direction: column;
+    }
+    .container .box .post_footer_likesrow_container div small {
+        margin-left: 0px;
+        display: block;
+    }
+}
+@media (max-width: 530px) {
+    .container {
+        margin-top: 50px;
+    }
+    .box {
+        gap: 13px;
+    }
+}

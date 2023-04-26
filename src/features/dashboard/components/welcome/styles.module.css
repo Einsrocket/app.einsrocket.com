@@ -1,0 +1,31 @@
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.welcome div {
+    display: flex;
+    align-items: center;
+}
+.welcome strong {
+    font-size: 2rem;
+    margin-right: 50px;
+    color: var(--gray);
+}
+.welcome p {
+    color: var(--gray);
+    opacity: 0.9;
+}
+.welcome span {
+    font-size: 0.9rem;
+    color: var(--text);
+    opacity: 0.9;
+}
+
+@media (max-width: 780px) {
+    .welcome div {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

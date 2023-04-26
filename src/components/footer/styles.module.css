@@ -1,0 +1,90 @@
+.footer {
+    width: 100%;
+    padding-top: 100px;
+}
+.footer .row {
+    padding: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+.footer .row div:first-child {
+    margin-right: 15px;
+}
+.footer .row div img {
+    margin-bottom: 35px;
+}
+.footer .row div p {
+    color: var(--text);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+.footer .row div span {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray);
+    margin-bottom: 25px;
+    display: block;
+}
+.footer .row div a {
+    padding-bottom: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: 0.3s;
+    border-bottom: 1px solid transparent;
+}
+.footer .row div a:hover {
+    border-bottom: 1px solid var(--primary);
+}
+
+.footer .second_row {
+    width: 100%;
+    padding: 0 10%;
+    margin-top: 20px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    border-top: 1px solid var(--gray-line);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.footer .second_row a {
+    width: 50px;
+    height: 50px;
+    background-color: var(--shape);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: 0.5s;
+}
+.footer .second_row svg {
+}
+
+.footer .second_row a:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+
+@media (max-width: 950px) {
+    .footer .row {
+        padding: 0 5%;
+        flex-wrap: wrap;
+    }
+    .footer .row div {
+        width: 30%;
+    }
+    .footer .row div:first-child {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+@media (max-width: 650px) {
+    .footer .row div {
+        width: 100%;
+    }
+}

@@ -53,7 +53,7 @@ export function Header() {
                             setIsMenuModalVisible(!isMenuModalVisible)
                         }
                     >
-                        EJ
+                        {localStorage.getItem("first-letter-username")}
                     </button>
 
                     {isMenuModalVisible && (

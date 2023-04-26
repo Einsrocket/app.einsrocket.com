@@ -29,3 +29,8 @@
         align-items: flex-start;
     }
 }
+@media (max-width: 450px) {
+    .welcome {
+        display: none;
+    }
+}

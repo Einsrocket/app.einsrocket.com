@@ -136,6 +136,14 @@
         padding: 14px;
     }
 }
+@media (max-width: 450px) {
+    .dashboard {
+        margin-top: 100px;
+    }
+    .dashboard_row {
+        margin-top: 0px;
+    }
+}
 @media (max-width: 380px) {
     .dashboard_row .dashboard_left .dashboard_left_content span {
         margin-right: 14px;

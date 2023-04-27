@@ -2,7 +2,7 @@ import { useState } from "react";
 import { UserPlus, List, Bell, MagnifyingGlass, X } from "phosphor-react";
 
 import style from "./styles.module.css";
-import IMG from "./assets/rocketseat-logo-mobile.svg";
+import IMG from "./assets/rocketseat-logo-mobile.png";
 import { Links } from "./links_modal/Index";
 import { MenuModal } from "./menu_Modal/Index";
 import { GiveFeedback } from "./give_feedback/Index";
@@ -58,9 +58,6 @@ export function Header() {
 
                     {isMenuModalVisible && (
                         <MenuModal
-                            // setIsGiveFeedbackModalVisible={
-                            //     setIsGiveFeedbackModalVisible
-                            // }
                             openModal={() =>
                                 setIsGiveFeedbackModalVisible(true)
                             }

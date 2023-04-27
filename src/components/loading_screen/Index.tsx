@@ -1,5 +1,5 @@
 import style from "./style.module.css";
-import IMG from "./XOsX.gif";
+import IMG from "./ZKZx.gif";
 
 export function LoadingScreen() {
     return (

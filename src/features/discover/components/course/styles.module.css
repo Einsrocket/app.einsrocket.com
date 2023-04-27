@@ -23,12 +23,23 @@
 .discover_course .discover_course_left .discover_course_left_row {
     display: flex;
     align-items: flex-start;
+    gap: 18px;
+}
+.discover_course
+    .discover_course_left
+    .discover_course_left_row
+    div:first-child {
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
 }
 .discover_course .discover_course_left .discover_course_left_row img {
     width: 100px;
     height: 100px;
     border-radius: 8px;
-    margin-right: 18px;
 }
 .discover_course .discover_course_left .discover_course_left_row span {
     font-size: 2rem;

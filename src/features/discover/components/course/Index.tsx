@@ -29,7 +29,9 @@ export function DiscoverCourse({
         >
             <div className={style.discover_course_left}>
                 <div className={style.discover_course_left_row}>
-                    <img src={avatar}></img>
+                    <div>
+                        <img src={avatar}></img>
+                    </div>
                     <div>
                         <span>{title}</span>
                         <p>{description}</p>

@@ -140,6 +140,9 @@
     .discover .discover_start {
         padding: 0 5%;
     }
+    .discover .discover_column {
+        padding: 0 5%;
+    }
 
     .discover .discover_start div {
         font-size: 1.5rem;

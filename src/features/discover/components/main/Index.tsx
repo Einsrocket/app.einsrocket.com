@@ -5,6 +5,7 @@ import IMG from "./discover-reduced.svg";
 
 import { DiscoverCourse } from "../course/Index.tsx";
 import { PaymentModal } from "../../../../components/Modals/payment_Modal/Index.tsx";
+import { LoadingScreen } from "../../../../components/loading_screen/Index.tsx";
 
 export function DiscoverContainer() {
     const navigate = useNavigate();
@@ -66,9 +67,11 @@ export function DiscoverContainer() {
     }, []);
 
     return (
-        <div className={style.discover}>
-            {!isLoading && (
-                <>
+        <>
+            {isLoading ? (
+                <LoadingScreen />
+            ) : (
+                <div className={style.discover}>
                     <div className={style.discover_welcome}>
                         <div>
                             <img src={IMG} alt="" />
@@ -105,10 +108,10 @@ export function DiscoverContainer() {
                                 );
                             })}
                     </div>
-                </>
-            )}
 
-            {isModalVisible && <PaymentModal />}
-        </div>
+                    {isModalVisible && <PaymentModal />}
+                </div>
+            )}
+        </>
     );
 }

@@ -4,6 +4,7 @@ import style from "./styles.module.css";
 
 import { UpdateModal } from "../update_modal/Index";
 import { useNavigate, useParams } from "react-router-dom";
+import { LoadingScreen } from "../../../../components/loading_screen/Index";
 
 export function ProfileContainer() {
     const navigate = useNavigate();
@@ -19,8 +20,7 @@ export function ProfileContainer() {
     const [is_user_who_sent_token, setIs_user_who_sent_token] = useState(false);
 
     async function getUserData() {
-        setIsloading(true);
-        let token = await localStorage.getItem("x-access-token");
+        let token = localStorage.getItem("x-access-token");
 
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
@@ -79,7 +79,9 @@ export function ProfileContainer() {
 
     return (
         <>
-            {!isloading && (
+            {isloading ? (
+                <LoadingScreen />
+            ) : (
                 <div className={style.profile}>
                     <div className={style.profile_banner}>
                         {is_user_who_sent_token && (

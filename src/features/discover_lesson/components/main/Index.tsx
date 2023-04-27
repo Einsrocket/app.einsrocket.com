@@ -8,12 +8,14 @@ import style from "./styles.module.css";
 import { RightDiv } from "../right_div/Index";
 import { Comments } from "../comments/Index";
 import { Header } from "../header/Index.jsx";
+import { LoadingScreen } from "../../../../components/loading_screen/Index.js";
 
 export function DiscoverLesson() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [lesson, setLesson] = useState([]) as any;
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [IsLoading, setIsLoading] = useState(true);
 
     const [playerState, setPlayerState] = useState({
         playing: false,
@@ -74,7 +76,7 @@ export function DiscoverLesson() {
     }
 
     async function getLesson() {
-        let token = await localStorage.getItem("x-access-token");
+        let token = localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
         }/lessons/lesson/${id}`;
@@ -95,6 +97,8 @@ export function DiscoverLesson() {
                 // console.log(data.result);
             })
             .catch((err) => console.log(err));
+
+        setIsLoading(false);
     }
 
     async function check_if_user_is_allowed() {
@@ -130,9 +134,11 @@ export function DiscoverLesson() {
     }, []);
 
     return (
-        <div className={style.container}>
-            {lesson.length !== 0 && (
-                <>
+        <>
+            {IsLoading ? (
+                <LoadingScreen />
+            ) : (
+                <div className={style.container}>
                     <Header />
 
                     <div className={style.box}>
@@ -208,10 +214,10 @@ export function DiscoverLesson() {
                     </div>
 
                     <Comments id={id} />
-                </>
-            )}
 
-            {isModalVisible && <PaymentModal />}
-        </div>
+                    {isModalVisible && <PaymentModal />}
+                </div>
+            )}
+        </>
     );
 }

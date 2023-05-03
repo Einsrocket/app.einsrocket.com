@@ -3,15 +3,25 @@ import { UserPlus, List, Bell, MagnifyingGlass, X } from "phosphor-react";
 
 import style from "./styles.module.css";
 import IMG from "./assets/rocketseat-logo-mobile.png";
-import { Links } from "./links_modal/Index";
-import { MenuModal } from "./menu_Modal/Index";
-import { GiveFeedback } from "./give_feedback/Index";
+import { Links } from "./components/links_modal/Index";
+import { MenuModal } from "./components/menu_Modal/Index";
+import { GiveFeedback } from "./components/give_feedback/Index";
+import { PendantInvitations } from "./components/pendant_invitations/Index";
+import { Notifications } from "./components/Notifications/Index";
+import { useNavigate } from "react-router-dom";
+import { useDecript } from "../../features/utils/decriptData";
 
 export function Header() {
     const [areLinksVisible, setAreLinksVisible] = useState(false);
     const [isMenuModalVisible, setIsMenuModalVisible] = useState(false);
     const [isGiveFeedbackModalVisible, setIsGiveFeedbackModalVisible] =
         useState(false);
+    const [isPendantInvitationsVisible, setIsPendantInvitationsVisible] =
+        useState(false);
+    const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
+
+    const navigate = useNavigate();
+    const firstLetter = useDecript()?.first_letter;
 
     return (
         <header className={style.header}>
@@ -38,23 +48,44 @@ export function Header() {
                 </div>
 
                 <div className={style.buttons}>
-                    <button>
+                    <button onClick={() => navigate("/search")}>
                         <MagnifyingGlass size={27} weight="duotone" />
                     </button>
-                    <button>
+
+                    <button
+                        onClick={() => {
+                            setIsPendantInvitationsVisible(
+                                !isPendantInvitationsVisible
+                            );
+
+                            setIsNotificationsVisible(false);
+                        }}
+                    >
                         <UserPlus size={27} weight="fill" />
                     </button>
-                    <button>
+
+                    <button
+                        onClick={() => {
+                            setIsNotificationsVisible(!isNotificationsVisible);
+                            setIsPendantInvitationsVisible(false);
+                        }}
+                    >
                         <Bell size={27} weight="fill" />
                     </button>
+
                     <button
                         className={style.circle}
-                        onClick={() =>
-                            setIsMenuModalVisible(!isMenuModalVisible)
-                        }
+                        onClick={() => {
+                            setIsMenuModalVisible(!isMenuModalVisible);
+                            setIsNotificationsVisible(false);
+                        }}
                     >
-                        {localStorage.getItem("first-letter-username")}
+                        {firstLetter}
                     </button>
+
+                    {isPendantInvitationsVisible && <PendantInvitations />}
+
+                    {isNotificationsVisible && <Notifications />}
 
                     {isMenuModalVisible && (
                         <MenuModal

@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import CryptoJS from "crypto-js";
+
 import style from "./styles.module.css";
 
 const loginUserFormSchema = z.object({
@@ -57,21 +59,27 @@ export function LoginContainer() {
 
             let response_data = await res.json();
 
-            if (response_data?.succes === true) {
-                localStorage.setItem("x-access-token", response_data?.token);
-                localStorage.setItem("slug", response_data?.userData?.slug);
-                localStorage.setItem(
-                    "first-letter-username",
-                    response_data?.userData?.username[0]
-                );
-                localStorage.setItem(
-                    "username",
-                    response_data?.userData?.username
-                );
+            if (response_data?.success === true) {
+                let obj = {
+                    username: response_data?.userData?.username,
+                    slug: response_data?.userData?.slug,
+                    id: response_data?.userData?.id,
+                    email: response_data?.userData?.email,
+                    first_letter:
+                        response_data?.userData?.username[0]?.toUpperCase(),
+                };
+
+                // Encrypt
+                var enciptedData = CryptoJS.AES.encrypt(
+                    JSON.stringify(obj),
+                    import.meta.env.VITE_CRIPTOJS_SECRET
+                ).toString();
+
+                localStorage.setItem("@skylab-einsrocket", enciptedData);
 
                 navigate("/dashboard");
             }
-            if (response_data?.succes === false) {
+            if (response_data?.success === false) {
                 Swal.fire({
                     title: "ALERTA!",
                     text: response_data?.message,

@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import CryptoJS from "crypto-js";
+
 const createUserrFormSchema = z.object({
     email: z
         .string()
@@ -66,18 +68,26 @@ export function RegisterContainer() {
 
             let response_data = await res.json();
 
-            if (response_data?.succes === true) {
-                localStorage.setItem("x-access-token", response_data?.token);
-                localStorage.setItem("slug", response_data?.slug);
-                localStorage.setItem(
-                    "first-letter-username",
-                    data?.username[0]
-                );
-                localStorage.setItem("username", data?.username);
+            if (response_data?.success === true) {
+                let obj = {
+                    username: data?.username,
+                    slug: response_data?.slug,
+                    id: response_data?.id,
+                    email: data?.email,
+                    first_letter: data?.username[0]?.toUpperCase(),
+                };
+
+                // Encrypt
+                var enciptedData = CryptoJS.AES.encrypt(
+                    JSON.stringify(obj),
+                    import.meta.env.VITE_CRIPTOJS_SECRET
+                ).toString();
+
+                localStorage.setItem("@skylab-einsrocket", enciptedData);
 
                 navigate("/dashboard");
             }
-            if (response_data?.succes === false) {
+            if (response_data?.success === false) {
                 Swal.fire({
                     title: "ALERTA!",
                     text: response_data?.message,
@@ -136,8 +146,20 @@ export function RegisterContainer() {
                 <br />
                 <p>
                     Ao se registrar, você aceita nossos{" "}
-                    <a href="/terms">termos de uso</a> e a nossa{" "}
-                    <a href="/privacy">política de privacidade</a>.
+                    <a
+                        target="_blank"
+                        href="https://einsrocket.netlify.app/terms"
+                    >
+                        termos de uso
+                    </a>{" "}
+                    e a nossa{" "}
+                    <a
+                        target="_blank"
+                        href="https://einsrocket.netlify.app/privacy"
+                    >
+                        política de privacidade
+                    </a>
+                    .
                 </p>
 
                 {!isLoading && <button>CADASTRAR</button>}

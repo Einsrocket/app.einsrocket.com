@@ -1,0 +1,38 @@
+.v_container {
+    width: 300px;
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 32px;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 20px;
+    background-color: rgb(41, 41, 46);
+    border-radius: 8px;
+    transform: translateY(10px);
+    z-index: 30;
+}
+
+.v_container strong {
+    border-radius: 8px 8px 0 0;
+    display: block;
+    background-color: rgb(53, 53, 58);
+    padding: 15px 20px;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.v_container .v_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 50px 8px;
+}
+.v_container .v_box img {
+    width: 70px;
+}
+.v_container .v_box p {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-align: center;
+}

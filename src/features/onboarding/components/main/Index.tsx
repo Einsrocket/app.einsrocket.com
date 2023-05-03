@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { InstagramLogo, FacebookLogo, MapPin } from "phosphor-react";
 import Style from "./Style.module.css";
+import axios from "axios";
+import { useDecript } from "../../../utils/decriptData";
 
 export const OnboardingContainer = () => {
     const navigate = useNavigate();
@@ -19,19 +21,17 @@ export const OnboardingContainer = () => {
     };
 
     const updateMadeTutorialStatus = async () => {
-        let token = await localStorage.getItem("x-access-token");
+        let storageData = useDecript();
+
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
         }/users/update_user_made_tutorial_status`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then(() => {})
-            .catch((err) => console.log(err));
+        try {
+            await axios.post(url, { id: storageData.id });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

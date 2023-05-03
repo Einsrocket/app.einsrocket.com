@@ -1,52 +1,44 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Style from "./Style.module.css";
 import { PulseLoader } from "react-spinners";
+import { useDecript } from "../../../utils/decriptData";
+import axios from "axios";
 
 export const UpdateModal = ({
     onClose = () => {},
     updateValues = () => {},
 }) => {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState() as any;
-    const [phone, setPhone] = useState() as any;
-    const [biography, setBiography] = useState() as any;
-    const [ocupation, setOcupation] = useState() as any;
-    const [city, setCity] = useState() as any;
-    const [state, setState] = useState() as any;
-    const [country, setCountry] = useState() as any;
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [biography, setBiography] = useState("");
+    const [ocupation, setOcupation] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    const storageData = useDecript();
+
     async function getUserInfo() {
-        let token = await localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
-        }/users/get_single_user_information`;
+        }/users/get_single_user_information/${storageData?.id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data?.token_expired === true) {
-                    navigate("/restore_section");
-                }
+        try {
+            let response = await axios(url);
 
-                if (data?.success === true) {
-                    // console.log(data);
-
-                    setEmail(data?.result?.email);
-                    setPhone(data?.result?.phone);
-                    setBiography(data?.result?.biography);
-                    setOcupation(data?.result?.ocupation);
-                    setCity(data?.result?.city);
-                    setState(data?.result?.state);
-                    setCountry(data?.result?.country);
-                }
-            })
-            .catch((err) => console.log(err));
+            if (response.data?.success === true) {
+                setEmail(response.data?.result?.email);
+                setPhone(response.data?.result?.phone);
+                setBiography(response.data?.result?.biography);
+                setOcupation(response.data?.result?.ocupation);
+                setCity(response.data?.result?.city);
+                setState(response.data?.result?.state);
+                setCountry(response.data?.result?.country);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // submit values to update
@@ -57,7 +49,6 @@ export const UpdateModal = ({
             return;
         }
 
-        let token = await localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
         }/users/update_user_informations`;
@@ -71,33 +62,21 @@ export const UpdateModal = ({
             ocupation,
             biography,
             phone,
+            id: storageData.id,
         };
 
         setIsLoading(true);
 
-        await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(valuesToSubmit),
-            headers: {
-                "Content-Type": "application/json",
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-                setIsLoading(false);
+        try {
+            let res = await axios.post(url, valuesToSubmit);
 
-                if (data?.token_expired === true) {
-                    navigate("/restore_section");
-                }
-
-                if (data.success) {
-                    updateValues();
-                    onClose();
-                }
-            })
-            .catch((err) => console.log(err));
+            if (res.data.success) {
+                updateValues();
+                onClose();
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
         setIsLoading(false);
     };

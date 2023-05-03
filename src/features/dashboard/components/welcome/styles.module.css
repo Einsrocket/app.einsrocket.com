@@ -23,10 +23,16 @@
     opacity: 0.9;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 1000px) {
+    .welcome {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
     .welcome div {
         flex-direction: column;
         align-items: flex-start;
+        gap: 20px;
     }
 }
 @media (max-width: 450px) {

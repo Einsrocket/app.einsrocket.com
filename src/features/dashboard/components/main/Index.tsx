@@ -1,48 +1,41 @@
 import { useEffect, useState } from "react";
 import style from "./styles.module.css";
+import axios from "axios";
 import IMG from "./banner-plus-desktop.webp";
 
 import { TutorialModal } from "../tutorial_Modal/Index.js";
 import { Welcome } from "../welcome/Index.js";
-import { useNavigate } from "react-router-dom";
+import { useDecript } from "../../../utils/decriptData.js";
 
 export function DashboarContainer() {
+    const storageData = useDecript();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [username, setUsername] = useState("");
-    const navigate = useNavigate();
-
-    let profile_link = `/me/${localStorage.getItem("slug")}`;
+    const [profile_link, setProfile_link] = useState("");
+    const [firstLetter, setFirstLetter] = useState("");
 
     async function getUserInfo() {
-        let token = localStorage.getItem("x-access-token");
+        setUsername(storageData.username);
+        setProfile_link(`/me/${storageData.slug}`);
+        setFirstLetter(storageData.first_letter);
+
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
-        }/users/get_single_user_information`;
+        }/users/get_single_user_information/${storageData?.id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                //     console.log(data.result);
+        try {
+            let response = await axios(url);
+            let response_data = await response.data;
 
-                if (data?.token_expired === true) {
-                    navigate("/restore_section");
-                }
-
-                if (data?.result?.made_tutorial === "false") {
-                    setIsModalVisible(true);
-                }
-            })
-            .catch((err) => console.log(err));
+            if (response_data?.result?.made_tutorial === "false") {
+                setIsModalVisible(true);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        let _data = localStorage.getItem("username") as any;
-
-        setUsername(_data);
         getUserInfo();
     }, []);
     return (
@@ -52,9 +45,7 @@ export function DashboarContainer() {
             <div className={style.dashboard_row}>
                 <div className={style.dashboard_left}>
                     <div className={style.dashboard_left_content}>
-                        <span>
-                            {localStorage.getItem("first-letter-username")}
-                        </span>
+                        <span>{firstLetter}</span>
                         <div className={style.dashboard_left_view_profile}>
                             <small>Meu perfil</small>
                             <a href={profile_link}>VISUALIZAR PERFIL</a>

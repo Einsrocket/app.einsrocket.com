@@ -1,3 +1,6 @@
+.main_container {
+    padding: 0 10%;
+}
 .container {
     padding: 14px;
     background-color: var(--box-background);
@@ -57,4 +60,10 @@
 .comment_box::-webkit-scrollbar-thumb {
     background: hsl(229, 76%, 66%);
     border-radius: 15px;
+}
+
+@media (max-width: 450px) {
+    .main_container {
+        padding: 0 5%;
+    }
 }

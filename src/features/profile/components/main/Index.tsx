@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Pen, Plus } from "phosphor-react";
 import style from "./styles.module.css";
+import axios from "axios";
 
 import { UpdateModal } from "../update_modal/Index";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { LoadingScreen } from "../../../../components/loading_screen/Index";
+import { useDecript } from "../../../utils/decriptData";
 
 export function ProfileContainer() {
-    const navigate = useNavigate();
     const slug = useParams().slug;
     const [biography, setBiography] = useState();
     const [email, setEmail] = useState();
@@ -17,58 +18,51 @@ export function ProfileContainer() {
     const [isloading, setIsloading] = useState(true);
     const [modalVisible, setmodalVisible] = useState(false);
     const [username, setUsername] = useState("");
-    const [is_user_who_sent_token, setIs_user_who_sent_token] = useState(false);
+    const [is_user_who_sent_id, setIs_user_who_sent_id] = useState(false);
+    const storageData = useDecript();
 
     async function getUserData() {
-        let token = localStorage.getItem("x-access-token");
-
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
-        }/users/get_single_user_information_with_slug_verfication/${slug}`;
+        }/users/get_single_user_information_with_slug_verfication`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data?.token_expired === true) {
-                    setIsloading(false);
-                    navigate("/restore_section");
-                }
-                if (data?.is_user_who_sent_token === true) {
-                    setIs_user_who_sent_token(true);
-                }
+        try {
+            let res = await axios.post(url, {
+                slug: slug,
+                id: storageData.id,
+            });
 
-                if (data?.success === true) {
-                    // console.log(data);
+            if (res.data?.is_user_who_sent_id === true) {
+                setIs_user_who_sent_id(true);
+            }
 
-                    setEntryDate(data?.entry_date);
-                    setEmail(
-                        typeof data?.result?.email === "object"
-                            ? ""
-                            : data?.result?.email
-                    );
-                    setPhone(
-                        typeof data?.result?.phone === "object"
-                            ? ""
-                            : data?.result?.phone
-                    );
-                    setOcupation(
-                        typeof data?.result?.ocupation === "object"
-                            ? ""
-                            : data?.result?.ocupation
-                    );
-                    setBiography(
-                        typeof data?.result?.biography === "object"
-                            ? ""
-                            : data?.result?.biography
-                    );
-                    setUsername(data?.result?.username);
-                }
-            })
-            .catch((err) => console.log(err));
+            if (res.data?.success === true) {
+                setEntryDate(res.data?.entry_date);
+                setEmail(
+                    typeof res.data?.result?.email === "object"
+                        ? ""
+                        : res.data?.result?.email
+                );
+                setPhone(
+                    typeof res.data?.result?.phone === "object"
+                        ? ""
+                        : res.data?.result?.phone
+                );
+                setOcupation(
+                    typeof res.data?.result?.ocupation === "object"
+                        ? ""
+                        : res.data?.result?.ocupation
+                );
+                setBiography(
+                    typeof res.data?.result?.biography === "object"
+                        ? ""
+                        : res.data?.result?.biography
+                );
+                setUsername(res.data?.result?.username);
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
         setIsloading(false);
     }
@@ -84,7 +78,7 @@ export function ProfileContainer() {
             ) : (
                 <div className={style.profile}>
                     <div className={style.profile_banner}>
-                        {is_user_who_sent_token && (
+                        {is_user_who_sent_id && (
                             <Pen color="hsl(210, 38%, 95%)" size={20} />
                         )}
                     </div>
@@ -95,7 +89,7 @@ export function ProfileContainer() {
                                 {username[0]?.toUpperCase()}
                             </div>
                             <strong>{username}</strong>
-                            {is_user_who_sent_token && (
+                            {is_user_who_sent_id && (
                                 <Pen
                                     color="hsl(210, 38%, 95%)"
                                     size={20}
@@ -109,32 +103,38 @@ export function ProfileContainer() {
                         </div>
 
                         <div className={style.profile_right}>
-                            <div className={style.profile_right_box}>
-                                <strong>Sobre mim</strong>
-                                {biography && <p>{biography}</p>}
-                                {!biography && is_user_who_sent_token && (
-                                    <div
-                                        onClick={() => setmodalVisible(true)}
-                                        className={
-                                            style.profile_right_no_content_box
-                                        }
-                                    >
-                                        <Plus
-                                            color="rgba(157, 109, 235, 0.856)"
-                                            size={25}
+                            {biography && (
+                                <div className={style.profile_right_box}>
+                                    <strong>Sobre mim</strong>
+                                    <p>{biography}</p>
+                                    {!biography && is_user_who_sent_id && (
+                                        <div
+                                            onClick={() =>
+                                                setmodalVisible(true)
+                                            }
+                                            className={
+                                                style.profile_right_no_content_box
+                                            }
+                                        >
+                                            <Plus
+                                                color="rgba(157, 109, 235, 0.856)"
+                                                size={25}
+                                            />
+                                            Quem é voce e o que faz?
+                                        </div>
+                                    )}
+                                    {is_user_who_sent_id && (
+                                        <Pen
+                                            color="hsl(210, 38%, 95%)"
+                                            size={20}
+                                            className={style.pen}
+                                            onClick={() =>
+                                                setmodalVisible(true)
+                                            }
                                         />
-                                        Quem é voce e o que faz?
-                                    </div>
-                                )}
-                                {is_user_who_sent_token && (
-                                    <Pen
-                                        color="hsl(210, 38%, 95%)"
-                                        size={20}
-                                        className={style.pen}
-                                        onClick={() => setmodalVisible(true)}
-                                    />
-                                )}
-                            </div>
+                                    )}
+                                </div>
+                            )}
                             {email && email !== "null" && (
                                 <div className={style.profile_right_box}>
                                     <strong>Email</strong>

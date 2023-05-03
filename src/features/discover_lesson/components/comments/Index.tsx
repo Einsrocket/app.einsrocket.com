@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { PaperPlaneTilt } from "phosphor-react";
+import axios from "axios";
+import { useDecript } from "../../../utils/decriptData.ts";
 
 import { Comment } from "../comment/Index";
 import style from "./styles.module.css";
 
 export function Comments({ id }: any) {
-    const [commentList, setCommentList] = useState([]);
+    const [commentList, setCommentList] = useState([]) as any;
     var [input, setInput] = useState("");
 
     async function getComments() {
@@ -14,17 +16,15 @@ export function Comments({ id }: any) {
             import.meta.env.VITE_SERVER_ENDPOINT
         }/lessons/get-comments-by-id/${lessonId}`;
 
-        await fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data?.success === true) {
-                    let reversed = data?.result?.reverse();
+        try {
+            let res = await axios(url);
 
-                    setCommentList(reversed);
-                }
-                // console.log(data?.result);
-            })
-            .catch((err) => console.log(err));
+            if (res.data?.success === true) {
+                setCommentList(res.data?.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //handles comment adding
@@ -35,25 +35,18 @@ export function Comments({ id }: any) {
 
         // values to submit when adding a comment
         const values = {
-            author: localStorage.getItem("username"),
+            author: useDecript().username,
             lesson_id: id,
             description: input,
-        };
+        } as any;
         let url = `${import.meta.env.VITE_SERVER_ENDPOINT}/lessons/add_comment`;
 
-        await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .then(() => {})
-            .catch((err) => console.log(err));
-
-        /*refresh the comment list*/
-        getComments();
+        try {
+            await axios.post(url, values);
+            setCommentList((list: []) => [values, ...list]);
+        } catch (error) {
+            console.log(error);
+        }
 
         setInput("");
     };
@@ -63,11 +56,7 @@ export function Comments({ id }: any) {
     }, []);
 
     return (
-        <div
-            style={{
-                padding: "0 10%",
-            }}
-        >
+        <div className={style.main_container}>
             <div className={style.container}>
                 <div className={style.input_box}>
                     <div>
@@ -92,8 +81,8 @@ export function Comments({ id }: any) {
 
                 <div className={style.comment_box}>
                     {commentList.length > 0 &&
-                        commentList.map((value: any) => {
-                            return <Comment key={value.id} value={value} />;
+                        commentList.map((value: any, index: number) => {
+                            return <Comment key={index} value={value} />;
                         })}
                 </div>
             </div>

@@ -4,60 +4,48 @@ import style from "./styles.module.css";
 import IMG from "./discover-reduced.svg";
 import { PaymentModal } from "../../../../components/Modals/payment_Modal/Index.js";
 import { LoadingScreen } from "../../../../components/loading_screen/Index.js";
+import axios from "axios";
+import { useDecript } from "../../../utils/decriptData.ts";
 
 export function DiscoverTails() {
     const navigate = useNavigate();
+    const storageData = useDecript();
     const { id } = useParams();
     const [lessonsList, setLessonsList] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [IsLoading, setIsLoading] = useState(true);
 
     async function getTrailLessons() {
-        let token = await localStorage.getItem("x-access-token");
         let url = `${import.meta.env.VITE_SERVER_ENDPOINT}/lessons/get/${id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-                if (data?.success === true) {
-                    setLessonsList(data?.result);
-                }
-            })
-            .catch((err) => console.log(err));
+        try {
+            let res = await axios(url);
+
+            if (res.data?.success === true) {
+                setLessonsList(res.data?.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
         setIsLoading(false);
     }
 
     async function check_if_user_is_allowed() {
-        let token = await localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
-        }/users/check-if-user-paid`;
+        }/users/check-if-user-paid/${storageData.id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-
-                if (data?.token_expired === true) {
-                    navigate("/restore_section");
+        try {
+            let res = await axios(url);
+            if (res.data?.success === true) {
+                if (res.data?.needToPay === true) {
+                    setIsModalVisible(true);
                 }
-                if (data?.success === true) {
-                    if (data?.needToPay === true) {
-                        setIsModalVisible(true);
-                    }
-                }
-            })
-            .catch((err) => console.log(err));
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {

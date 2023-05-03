@@ -1,0 +1,41 @@
+.video_wrapper {
+    flex: 1.5;
+}
+.video_wrapper video {
+    outline: none;
+    width: 100%;
+}
+.video_wrapper video::-webkit-media-controls {
+    display: none !important;
+}
+.video_wrapper div:first-child {
+    width: 100%;
+    background-color: #202024;
+    padding-top: 10px;
+    position: relative;
+}
+
+.video_wrapper div:last-child {
+    width: 100%;
+    height: 50px;
+    background-color: #202024;
+    transform: translateY(-20px);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 0 10px;
+}
+.video_wrapper div:last-child input {
+    width: 100%;
+}
+
+.video_wrapper div button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 1s;
+}
+.video_wrapper div button:hover {
+    background-color: #2020249c;
+    opacity: 0.8;
+}

@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "./privateRoute";
 import { Register } from "../pages/Register";
 import { Homepage } from "../pages/Homepage";
-import { Login } from "../pages/Login";
 import { Dashboard } from "../pages/Dashboard";
 import { Discover } from "../pages/Discover";
 import { DiscoverTailsPage } from "../pages/DiscoverTailsPage";
@@ -14,6 +13,7 @@ import { Redirect } from "./Redirect";
 import { Pagenotfound } from "../pages/PageNotFound";
 import { Logoutpage } from "../pages/Logout";
 import { RestoreSectionPage } from "../pages/RestoreSectionPage";
+import { Search } from "../pages/Search";
 
 export function Router() {
     return (
@@ -31,7 +31,6 @@ export function Router() {
                     />
 
                     <Route path="/signup" element={<Register />} />
-                    <Route path="/signin" element={<Login />} />
 
                     <Route
                         path="/dashboard"
@@ -95,6 +94,14 @@ export function Router() {
                         element={
                             <PrivateRoute>
                                 <RestoreSectionPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/search"
+                        element={
+                            <PrivateRoute>
+                                <Search />
                             </PrivateRoute>
                         }
                     />

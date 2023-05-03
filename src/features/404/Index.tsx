@@ -1,5 +1,5 @@
 import style from "./styles.module.css";
-import IMG from "./rocketseat.svg";
+import IMG from "./rocketseat.png";
 
 export function PageNotFound() {
     return (

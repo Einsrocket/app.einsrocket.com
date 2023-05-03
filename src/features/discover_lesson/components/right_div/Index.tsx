@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 import style from "./styles.module.css";
 
 interface Props {
@@ -10,24 +10,18 @@ export function RightDiv({ course_id }: Props) {
     const [lessonsList, setLessonsList] = useState([]);
 
     async function getLessons() {
-        let token = await localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
         }/lessons/get/${course_id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data.result[0]);
-                if (data?.success === true) {
-                    setLessonsList(data?.result);
-                }
-            })
-            .catch((err) => console.log(err));
+        try {
+            let res = await axios(url);
+            if (res.data?.success === true) {
+                setLessonsList(res.data?.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {

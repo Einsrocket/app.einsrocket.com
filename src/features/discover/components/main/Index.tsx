@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import style from "./styles.module.css";
 import IMG from "./discover-reduced.svg";
+import axios from "axios";
 
 import { DiscoverCourse } from "../course/Index.tsx";
 import { PaymentModal } from "../../../../components/Modals/payment_Modal/Index.tsx";
 import { LoadingScreen } from "../../../../components/loading_screen/Index.tsx";
+import { useDecript } from "../../../utils/decriptData.ts";
 
 export function DiscoverContainer() {
-    const navigate = useNavigate();
     const [coursesList, setCoursesList] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLoading, setisLoading] = useState(true);
     const [firstCourse, setFirstCourse] = useState("");
+    const storageData = useDecript();
 
     async function getCoursesInfo() {
         let url = `${
@@ -21,44 +22,36 @@ export function DiscoverContainer() {
 
         setisLoading(true);
 
-        await fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                setFirstCourse(`/discover/trails/${data?.result[0]?.id}`);
-                if (data?.success === true) {
-                    setCoursesList(data.result);
-                }
-            })
-            .catch((err) => console.log(err));
+        try {
+            let res = await axios(url);
+
+            setFirstCourse(`/discover/trails/${res.data?.result[0]?.id}`);
+
+            if (res.data?.success === true) {
+                setCoursesList(res.data.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
         setisLoading(false);
     }
 
     async function check_if_user_is_allowed() {
-        let token = await localStorage.getItem("x-access-token");
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
-        }/users/check-if-user-paid`;
+        }/users/check-if-user-paid/${storageData.id}`;
 
-        await fetch(url, {
-            headers: {
-                x_access_token: token,
-            } as any,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-
-                if (data?.token_expired === true) {
-                    navigate("/restore_section");
+        try {
+            let res = await axios(url);
+            if (res.data?.success === true) {
+                if (res.data?.needToPay === true) {
+                    setIsModalVisible(true);
                 }
-                if (data?.success === true) {
-                    if (data?.needToPay === true) {
-                        setIsModalVisible(true);
-                    }
-                }
-            })
-            .catch((err) => console.log(err));
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {

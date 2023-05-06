@@ -3,7 +3,7 @@ import { PaperPlaneTilt } from "phosphor-react";
 import axios from "axios";
 import { useDecript } from "../../../utils/decriptData.ts";
 
-import { Comment } from "../comment/Index";
+import { Comment } from "./comment/Index.tsx";
 import style from "./styles.module.css";
 
 export function Comments({ id }: any) {

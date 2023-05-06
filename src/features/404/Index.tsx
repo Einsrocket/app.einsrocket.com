@@ -1,14 +1,12 @@
 import style from "./styles.module.css";
 import IMG from "./rocketseat.png";
+import IMG2 from "./black-hole.svg";
 
 export function PageNotFound() {
     return (
         <div className={style.container}>
             <div className={style.left}>
-                <img
-                    src="\assets\images\black-hole.svg"
-                    alt="Buraco negro"
-                ></img>
+                <img src={IMG2} alt="Buraco negro"></img>
             </div>
 
             <div className={style.right}>

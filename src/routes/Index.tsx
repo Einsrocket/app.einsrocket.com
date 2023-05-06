@@ -12,8 +12,8 @@ import { Onboarding } from "../pages/Onboarding";
 import { Redirect } from "./Redirect";
 import { Pagenotfound } from "../pages/PageNotFound";
 import { Logoutpage } from "../pages/Logout";
-import { RestoreSectionPage } from "../pages/RestoreSectionPage";
 import { Search } from "../pages/Search";
+import { Chatpage } from "../pages/Chatpage";
 
 export function Router() {
     return (
@@ -32,6 +32,14 @@ export function Router() {
 
                     <Route path="/signup" element={<Register />} />
 
+                    <Route
+                        path="/chat"
+                        element={
+                            <PrivateRoute>
+                                <Chatpage />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/dashboard"
                         element={
@@ -89,14 +97,7 @@ export function Router() {
                             </PrivateRoute>
                         }
                     />
-                    <Route
-                        path="/restore_section"
-                        element={
-                            <PrivateRoute>
-                                <RestoreSectionPage />
-                            </PrivateRoute>
-                        }
-                    />
+
                     <Route
                         path="/search"
                         element={

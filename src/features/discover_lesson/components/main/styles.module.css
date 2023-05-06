@@ -5,11 +5,11 @@
 }
 
 .container .box {
+    margin-top: 50px;
     display: flex;
     text-align: flex-start;
     gap: 30px;
     padding: 0 10%;
-    margin-top: 50px;
 }
 
 .container .box h4 {
@@ -69,6 +69,16 @@ l
     border-top: 1px solid var(--gray-line);
     word-break: break-all;
     word-wrap: break-word;
+}
+.description button {
+    margin-top: 20px;
+    padding: 15px 40px;
+    border-radius: 5px;
+    background-color: var(--discover-blue);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
 }
 /*
 

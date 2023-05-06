@@ -10,6 +10,7 @@ import { Comments } from "../comments/Index";
 import { Header } from "../header/Index.jsx";
 import { LoadingScreen } from "../../../../components/loading_screen/Index.js";
 import { VideoComponent } from "../video/Index.tsx";
+import { Quiz } from "../quiz/Index.tsx";
 
 export function DiscoverLesson() {
     const { id } = useParams();
@@ -17,6 +18,9 @@ export function DiscoverLesson() {
     const [lesson, setLesson] = useState([]) as any;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [IsLoading, setIsLoading] = useState(true);
+    const [isQuizOpened, setIsQuizOpened] = useState(false);
+    const [showQuizButton, setShowQuizButton] = useState(false);
+    const [quiz, setQuiz] = useState("");
 
     async function getLesson() {
         let url = `${
@@ -28,6 +32,7 @@ export function DiscoverLesson() {
 
             if (res.data?.success === true) {
                 setLesson(res.data?.result);
+                setQuiz(res.data.result.quiz);
             }
         } catch (error) {
             console.log(error);
@@ -53,9 +58,30 @@ export function DiscoverLesson() {
         }
     }
 
+    async function check_if_user_made_quiz() {
+        let url = `${
+            import.meta.env.VITE_SERVER_ENDPOINT
+        }/quizes/check-if-user-made-quiz`;
+
+        try {
+            let res = await axios.post(url, {
+                user_id: storageData.id,
+                lesson_id: id,
+            });
+            // console.log(res.data);
+
+            if (res.data?.show_quiz_button === true) {
+                setShowQuizButton(true);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         check_if_user_is_allowed();
         getLesson();
+        check_if_user_made_quiz();
     }, []);
 
     return (
@@ -85,12 +111,29 @@ export function DiscoverLesson() {
                                 ? lesson?.description.substring(0, 499) + "..."
                                 : lesson?.description}
                         </p>
+
+                        {showQuizButton && (
+                            <button onClick={() => setIsQuizOpened(true)}>
+                                FAZER QUIZ
+                            </button>
+                        )}
                     </div>
 
                     <Comments id={id} />
 
                     {isModalVisible && <PaymentModal />}
                 </div>
+            )}
+
+            {isQuizOpened && (
+                <Quiz
+                    quiz={quiz}
+                    lesson_id={lesson?.id}
+                    close={() => {
+                        setShowQuizButton(false);
+                        setIsQuizOpened(false);
+                    }}
+                />
             )}
         </>
     );

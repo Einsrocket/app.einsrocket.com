@@ -1,0 +1,100 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--background);
+    padding-bottom: 120px;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 0 5%;
+    padding-top: 150px;
+    padding-bottom: 100px;
+}
+.container::-webkit-scrollbar {
+    background: transparent;
+}
+.container::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.container .box {
+    width: min(900px, 100%);
+    margin: 50px auto;
+    background: var(--box-background);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+    padding-top: 50px;
+}
+.container .box .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.container .box .close:hover {
+    color: #ffffff8a;
+}
+.container .box .left {
+    width: 45%;
+    padding: 20px 30px;
+}
+.container .box .right {
+    padding: 20px 30px;
+    width: 50%;
+}
+
+.container .box .left h1 {
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+.container .box .left p {
+    color: var(--text);
+}
+
+.container .box .right div {
+    padding: 10px 10px;
+    width: 100%;
+    border: 1px solid var(--discover-blue);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.container .box .right button {
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    height: 40px;
+    width: 100%;
+    background: var(--discover-blue);
+    outline: none;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+}
+.container .box .right button:hover {
+    opacity: 0.8;
+}
+.container .box .right button:active {
+    opacity: 0.4;
+}
+
+@media (max-width: 790px) {
+    .container .box .left,
+    .container .box .right {
+        width: 100%;
+    }
+}
+@media (max-width: 500px) {
+    .container {
+        padding-top: 70px;
+    }
+}

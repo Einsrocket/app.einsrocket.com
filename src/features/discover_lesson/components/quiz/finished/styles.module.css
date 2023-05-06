@@ -1,0 +1,51 @@
+._container {
+    width: 100%;
+}
+._container ._box {
+    margin: auto;
+    width: min(900px, 100%);
+    padding: 30px;
+    background: var(--box-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 5px;
+}
+._container ._box h1 {
+    color: var(--gray);
+    margin-bottom: 14px;
+    font-size: 1.3rem;
+}
+._container ._box p {
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+._container ._box button {
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    height: 40px;
+    background: var(--discover-blue);
+    outline: none;
+    border: none;
+    color: #eee;
+    padding: 0 40px;
+    transition: 0.5s;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+._container ._box button:hover {
+    scale: 1.1;
+}
+._container ._box button:active {
+    opacity: 0.5;
+}
+
+@media (max-width: 500px) {
+    ._container {
+        padding-top: 70px;
+    }
+}

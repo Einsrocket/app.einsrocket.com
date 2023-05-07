@@ -11,7 +11,7 @@ export function Chat() {
     const [messages, setMessages] = useState([
         {
             role: "user",
-            content: `Only speak in portuguese, and in english if it is needed!`,
+            content: `Only speak in portuguese, and in english if it is needed! You are suposed to talk only about questions related to the topic of english!`,
         },
     ]) as any;
     const [input, setInput] = useState("");
@@ -79,7 +79,7 @@ export function Chat() {
                                 style={{
                                     display:
                                         v?.content ===
-                                        "Only speak in portuguese, and in english if it is needed!"
+                                        "Only speak in portuguese, and in english if it is needed! You are suposed to talk only about questions related to the topic of english!"
                                             ? "none"
                                             : "djs",
                                 }}

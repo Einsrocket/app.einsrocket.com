@@ -8,7 +8,12 @@ import axios from "axios";
 import { useDecript } from "../utils/decriptData";
 
 export function Chat() {
-    const [messages, setMessages] = useState([]) as any;
+    const [messages, setMessages] = useState([
+        {
+            role: "user",
+            content: `Only speak in portuguese, and in english if it is needed!`,
+        },
+    ]) as any;
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const storageData = useDecript();
@@ -17,10 +22,12 @@ export function Chat() {
     async function sendMessage() {
         if (input.trim() === "") return;
 
-        setMessages((list: []) => [
-            ...list,
-            { from: "myself", content: `${input}` },
-        ]);
+        let _m = messages.map((v: any) => {
+            return v;
+        });
+        _m.push({ role: "user", content: `${input}` });
+
+        setMessages(_m);
 
         let url = `${
             import.meta.env.VITE_SERVER_ENDPOINT
@@ -28,6 +35,7 @@ export function Chat() {
         let obj = {
             user: storageData.username,
             message: input,
+            messages: _m,
         };
 
         setIsLoading(true);
@@ -35,9 +43,10 @@ export function Chat() {
         try {
             let res = await axios.post(url, obj);
 
-            setMessages((list: []) => [...list, res.data.result]);
-
-            // console.log(res.data.result);
+            if (res.data.success === true) {
+                // console.log(res.data.result);
+                setMessages((list: []) => [...list, res.data.result]);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -47,24 +56,35 @@ export function Chat() {
 
     useEffect(() => {
         // 👇️ scroll to bottom every time messages change
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+
+        bottomRef.current.scroll({
+            top: bottomRef.current.scrollHeight,
+            behavior: "smooth",
+        });
     }, [messages]);
 
     return (
         <div className={style.container}>
             <div className={style.top} ref={bottomRef}>
                 {messages?.map(
-                    (v: { from: string; content: string }, i: number) => {
+                    (v: { role: string; content: string }, i: number) => {
                         return (
                             <div
                                 key={i}
                                 className={
-                                    v?.from == "myself"
+                                    v?.role == "user"
                                         ? style?.my_message
                                         : style?.ai_message
                                 }
+                                style={{
+                                    display:
+                                        v?.content ===
+                                        "Only speak in portuguese, and in english if it is needed!"
+                                            ? "none"
+                                            : "djs",
+                                }}
                             >
-                                <img src={v?.from == "myself" ? IMG : IMG2} />
+                                <img src={v?.role == "user" ? IMG : IMG2} />
                                 <div>
                                     <p>{v?.content}</p>
                                 </div>

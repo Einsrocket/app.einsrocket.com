@@ -112,7 +112,7 @@ export function DiscoverLesson() {
                                 : lesson?.description}
                         </p>
 
-                        {showQuizButton && (
+                        {showQuizButton && quiz?.length > 0 && (
                             <button onClick={() => setIsQuizOpened(true)}>
                                 FAZER QUIZ
                             </button>
@@ -121,7 +121,9 @@ export function DiscoverLesson() {
 
                     <Comments id={id} />
 
-                    {isModalVisible && <PaymentModal />}
+                    {isModalVisible && (
+                        <PaymentModal close={() => setIsModalVisible(false)} />
+                    )}
                 </div>
             )}
 

@@ -10,6 +10,10 @@
     font-family: "Roboto";
     src: url(fonts/Roboto/Roboto-Regular.ttf);
 }
+@font-face {
+    font-family: "Sigmar";
+    src: url(fonts/Sigmar/Sigmar-Regular.ttf);
+}
 
 :root {
     --box-background: rgb(32, 32, 36);

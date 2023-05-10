@@ -64,46 +64,49 @@ export function DiscoverContainer() {
             {isLoading ? (
                 <LoadingScreen />
             ) : (
-                <div className={style.discover}>
-                    <div className={style.discover_welcome}>
-                        <div>
-                            <img src={IMG} alt="" />
-                            <p>Aprenda a falar ingles do zero!</p>
+                !isModalVisible && (
+                    <div className={style.discover}>
+                        <div className={style.discover_welcome}>
+                            <div>
+                                <img src={IMG} alt="" />
+                                <p>Aprenda a falar ingles do zero!</p>
+                            </div>
+                        </div>
+
+                        <div className={style.discover_start}>
+                            <div>
+                                <strong>Inicie seus estudos</strong>
+                                <p>
+                                    Jornada prática de introdução aos <br />
+                                    estudos para conhecer o universo da <br />
+                                    lingua inglesa.
+                                </p>
+                                <a href={firstCourse}>INICIAR JORNADA</a>
+                            </div>
+                        </div>
+
+                        <div className={style.discover_column}>
+                            {coursesList &&
+                                coursesList.map((value: any, index) => {
+                                    return (
+                                        <DiscoverCourse
+                                            key={index}
+                                            avatar={value?.avatar}
+                                            title={value?.title}
+                                            description={value?.description}
+                                            id={value?.id}
+                                            first_topic={value?.first_topic}
+                                            second_topic={value?.second_topic}
+                                            third_topic={value?.third_topic}
+                                        />
+                                    );
+                                })}
                         </div>
                     </div>
-
-                    <div className={style.discover_start}>
-                        <div>
-                            <strong>Inicie seus estudos</strong>
-                            <p>
-                                Jornada prática de introdução aos <br />
-                                estudos para conhecer o universo da <br />
-                                lingua inglesa.
-                            </p>
-                            <a href={firstCourse}>INICIAR JORNADA</a>
-                        </div>
-                    </div>
-
-                    <div className={style.discover_column}>
-                        {coursesList &&
-                            coursesList.map((value: any, index) => {
-                                return (
-                                    <DiscoverCourse
-                                        key={index}
-                                        avatar={value?.avatar}
-                                        title={value?.title}
-                                        description={value?.description}
-                                        id={value?.id}
-                                        first_topic={value?.first_topic}
-                                        second_topic={value?.second_topic}
-                                        third_topic={value?.third_topic}
-                                    />
-                                );
-                            })}
-                    </div>
-
-                    {isModalVisible && <PaymentModal />}
-                </div>
+                )
+            )}
+            {isModalVisible && (
+                <PaymentModal close={() => setIsModalVisible(false)} />
             )}
         </>
     );

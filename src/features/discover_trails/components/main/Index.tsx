@@ -96,7 +96,9 @@ export function DiscoverTails() {
                         })}
                     </div>
 
-                    {isModalVisible && <PaymentModal />}
+                    {isModalVisible && (
+                        <PaymentModal close={() => setIsModalVisible(false)} />
+                    )}
                 </div>
             )}
         </>

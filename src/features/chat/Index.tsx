@@ -44,7 +44,7 @@ export function Chat() {
             let res = await axios.post(url, obj);
 
             if (res.data.success === true) {
-                // console.log(res.data.result);
+                // console.log(res.data.result.content);
                 setMessages((list: []) => [...list, res.data.result]);
             }
         } catch (error) {
@@ -56,7 +56,6 @@ export function Chat() {
 
     useEffect(() => {
         // 👇️ scroll to bottom every time messages change
-
         bottomRef.current.scroll({
             top: bottomRef.current.scrollHeight,
             behavior: "smooth",
@@ -87,6 +86,7 @@ export function Chat() {
                                 <img src={v?.role == "user" ? IMG : IMG2} />
                                 <div>
                                     <p>{v?.content}</p>
+                                    {/* {<Paragraph content={v?.content} />} */}
                                 </div>
                             </div>
                         );

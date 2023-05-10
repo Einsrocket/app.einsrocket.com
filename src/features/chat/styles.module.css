@@ -38,8 +38,7 @@
 .container .top .ai_message div p {
     font-size: 0.9rem;
     line-height: 30px;
-    word-break: break-all;
-    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .container .bottom {

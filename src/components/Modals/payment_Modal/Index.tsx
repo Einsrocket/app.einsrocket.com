@@ -107,7 +107,7 @@ export const PaymentModal = ({ close }: Iprops) => {
                                     ],
                                 });
                             }}
-                            onApprove={(data, actions) => {
+                            onApprove={(data: any, actions: any) => {
                                 return actions.order
                                     ?.capture()
                                     .then(aproveSell);

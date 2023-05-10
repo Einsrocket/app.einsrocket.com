@@ -97,6 +97,8 @@ export const PaymentModal = ({ close }: Iprops) => {
                     <PayPalScriptProvider options={initialOptions}>
                         <PayPalButtons
                             createOrder={(data, actions) => {
+                                console.log(data);
+
                                 return actions.order.create({
                                     purchase_units: [
                                         {
@@ -108,6 +110,7 @@ export const PaymentModal = ({ close }: Iprops) => {
                                 });
                             }}
                             onApprove={(data: any, actions: any) => {
+                                console.log(data);
                                 return actions.order
                                     ?.capture()
                                     .then(aproveSell);

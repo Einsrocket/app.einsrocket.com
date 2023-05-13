@@ -36,6 +36,7 @@ export function Comments({ id }: any) {
         // values to submit when adding a comment
         const values = {
             author: useDecript().username,
+            author_id: useDecript().id,
             lesson_id: id,
             description: input,
         } as any;

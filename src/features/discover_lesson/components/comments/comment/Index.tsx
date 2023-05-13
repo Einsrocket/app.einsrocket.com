@@ -41,7 +41,7 @@ export function Comment({ value }: any) {
                     <div className={style.post_comment_box}>
                         <span className={style.post_comment_username}>
                             {value.author}{" "}
-                            {value.author == storageData.username && (
+                            {value.author_id == storageData.id && (
                                 <>
                                     {loading ? (
                                         <MoonLoader color="#e1e1e6" size={10} />

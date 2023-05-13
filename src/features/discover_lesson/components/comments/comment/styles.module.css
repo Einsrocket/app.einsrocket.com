@@ -31,12 +31,20 @@
 }
 .post_comment .post_comment_username {
     color: var(--gray);
-    display: block;
-    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
     font-size: 0.9rem;
     font-weight: 600;
+    gap: 20px;
+}
+.post_comment .post_comment_username svg {
+    cursor: pointer;
+}
+.post_comment .post_comment_username svg:hover {
+    opacity: 0.7;
 }
 .post_comment .post_comment_comment {
+    margin-top: 8px;
     display: block;
     font-size: 0.8rem;
     color: var(--gray);

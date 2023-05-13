@@ -106,23 +106,10 @@ export function ProfileContainer() {
                             {biography && (
                                 <div className={style.profile_right_box}>
                                     <strong>Sobre mim</strong>
-                                    <p>{biography}</p>
-                                    {!biography && is_user_who_sent_id && (
-                                        <div
-                                            onClick={() =>
-                                                setmodalVisible(true)
-                                            }
-                                            className={
-                                                style.profile_right_no_content_box
-                                            }
-                                        >
-                                            <Plus
-                                                color="rgba(157, 109, 235, 0.856)"
-                                                size={25}
-                                            />
-                                            Quem é voce e o que faz?
-                                        </div>
+                                    {biography && biography !== "null" && (
+                                        <p>{biography}</p>
                                     )}
+
                                     {is_user_who_sent_id && (
                                         <Pen
                                             color="hsl(210, 38%, 95%)"
@@ -135,6 +122,22 @@ export function ProfileContainer() {
                                     )}
                                 </div>
                             )}
+
+                            {!biography && is_user_who_sent_id && (
+                                <div
+                                    onClick={() => setmodalVisible(true)}
+                                    className={
+                                        style.profile_right_no_content_box
+                                    }
+                                >
+                                    <Plus
+                                        color="rgba(157, 109, 235, 0.856)"
+                                        size={25}
+                                    />
+                                    Quem é voce e o que faz?
+                                </div>
+                            )}
+
                             {email && email !== "null" && (
                                 <div className={style.profile_right_box}>
                                     <strong>Email</strong>

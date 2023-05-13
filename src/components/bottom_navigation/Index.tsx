@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import style from "./styles.module.css";
+import { useDecript } from "../../features/utils/decriptData";
 
 interface Props {
     route: string;
@@ -11,13 +12,14 @@ interface Props {
 export function BottomNavigation({ route }: Props) {
     const [profile_link, set_profile_link] = useState("");
     const navigate = useNavigate();
+    const storageData = useDecript();
 
     const navigateToPage = async (rota: string) => {
         navigate(`/${rota}`);
     };
 
     useEffect(() => {
-        set_profile_link(`me/${localStorage.getItem("slug")}`);
+        set_profile_link(`me/${storageData.slug}`);
     }, []);
     return (
         <div className={style.bottom_navigation}>

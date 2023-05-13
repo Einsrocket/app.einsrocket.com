@@ -161,6 +161,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background: var(--box-background);
 }
 .profile_row .profile_right .profile_right_no_content_box:hover {
     border: 1px solid var(--primary);
